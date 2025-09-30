@@ -1,15 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { MapPin, Calendar, User, AlertTriangle, CheckCircle, Clock, Camera, MessageSquare, ArrowLeft, Edit } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  MapPin,
+  Calendar,
+  User,
+  AlertTriangle,
+  CheckCircle,
+  Clock,
+  Camera,
+  MessageSquare,
+  ArrowLeft,
+  Edit,
+} from "lucide-react";
 
 const IssueDetail = ({ user }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [issue, setIssue] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [newComment, setNewComment] = useState('');
+  const [newComment, setNewComment] = useState("");
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [statusUpdate, setStatusUpdate] = useState('');
+  const [statusUpdate, setStatusUpdate] = useState("");
 
   // Mock data for issue detail
   useEffect(() => {
@@ -17,91 +28,96 @@ const IssueDetail = ({ user }) => {
     setTimeout(() => {
       const mockIssue = {
         id: parseInt(id),
-        title: "Pothole on Main Street",
-        description: "Large pothole causing traffic issues near the intersection. The pothole is approximately 2 feet wide and 6 inches deep, creating a hazard for vehicles and motorcycles. Multiple citizens have reported damage to their vehicles.",
+        title: "Pothole on MG Road",
+        description:
+          "Large pothole causing traffic issues near the intersection. The pothole is approximately 2 feet wide and 6 inches deep, creating a hazard for vehicles and motorcycles. Multiple citizens have reported damage to their vehicles.",
         category: "Roads",
         status: "in-progress",
         priority: "high",
         location: {
           lat: 12.9716,
           lng: 77.5946,
-          address: "Main Street, Ward 5",
-          landmark: "Near City Bank ATM"
+          address: "MG Road, Ward 5, Bangalore",
+          landmark: "Near State Bank ATM",
         },
         ward: "Ward 5",
         reportedBy: {
-          name: "John Citizen",
+          name: "Rajesh Kumar",
           phone: "+91-9876543210",
-          email: "john.citizen@email.com"
+          email: "rajesh.kumar@email.com",
         },
         reportedDate: "2024-01-15T10:30:00Z",
         assignedTo: {
-          name: "Mike Johnson",
+          name: "Suresh Patel",
           phone: "+91-9876543212",
-          role: "Road Maintenance Supervisor"
+          role: "Road Maintenance Supervisor",
         },
         assignedDate: "2024-01-15T14:00:00Z",
         images: [
           "https://via.placeholder.com/400x300?text=Pothole+Image+1",
           "https://via.placeholder.com/400x300?text=Pothole+Image+2",
-          "https://via.placeholder.com/400x300?text=Pothole+Image+3"
+          "https://via.placeholder.com/400x300?text=Pothole+Image+3",
         ],
         progressImages: [
-          "https://via.placeholder.com/400x300?text=Work+Started"
+          "https://via.placeholder.com/400x300?text=Work+Started",
         ],
         timeline: [
           {
             date: "2024-01-15T10:30:00Z",
             action: "Issue reported",
-            user: "John Citizen",
+            user: "Rajesh Kumar",
             type: "report",
-            details: "Issue reported by citizen via mobile app"
+            details: "Issue reported by citizen via mobile app",
           },
           {
             date: "2024-01-15T11:15:00Z",
             action: "Issue verified",
             user: "Admin",
             type: "verification",
-            details: "Field verification completed. Issue confirmed as high priority."
+            details:
+              "Field verification completed. Issue confirmed as high priority.",
           },
           {
             date: "2024-01-15T14:00:00Z",
-            action: "Assigned to Mike Johnson",
+            action: "Assigned to Suresh Patel",
             user: "Supervisor",
             type: "assignment",
-            details: "Assigned to road maintenance team lead"
+            details: "Assigned to road maintenance team lead",
           },
           {
             date: "2024-01-16T09:00:00Z",
             action: "Work started",
-            user: "Mike Johnson",
+            user: "Suresh Patel",
             type: "progress",
-            details: "Repair work commenced. Materials delivered to site."
+            details: "Repair work commenced. Materials delivered to site.",
           },
           {
             date: "2024-01-16T15:30:00Z",
             action: "Progress update",
-            user: "Mike Johnson",
+            user: "Suresh Patel",
             type: "progress",
-            details: "50% completion. Pothole filled, awaiting asphalt compaction."
-          }
+            details:
+              "50% completion. Pothole filled, awaiting asphalt compaction.",
+          },
         ],
         comments: [
           {
             id: 1,
-            user: "John Citizen",
+            user: "Rajesh Kumar",
             date: "2024-01-15T12:00:00Z",
-            message: "Thank you for the quick response. This has been a problem for weeks."
+            message:
+              "Thank you for the quick response. This has been a problem for weeks.",
           },
           {
             id: 2,
-            user: "Mike Johnson",
+            user: "Suresh Patel",
             date: "2024-01-16T09:15:00Z",
-            message: "Work has started. We expect to complete the repair by end of day today."
-          }
+            message:
+              "Work has started. We expect to complete the repair by end of day today.",
+          },
         ],
         estimatedCompletion: "2024-01-17T17:00:00Z",
-        tags: ["traffic-hazard", "urgent", "main-road"]
+        tags: ["traffic-hazard", "urgent", "mg-road"],
       };
       setIssue(mockIssue);
       setLoading(false);
@@ -110,50 +126,59 @@ const IssueDetail = ({ user }) => {
 
   const getStatusBadge = (status) => {
     const statusColors = {
-      new: { backgroundColor: '#ffeaa7', color: '#2d3436' },
-      verified: { backgroundColor: '#74b9ff', color: 'white' },
-      assigned: { backgroundColor: '#fd79a8', color: 'white' },
-      'in-progress': { backgroundColor: '#fdcb6e', color: '#2d3436' },
-      resolved: { backgroundColor: '#00b894', color: 'white' }
+      new: { backgroundColor: "#ffeaa7", color: "#2d3436" },
+      verified: { backgroundColor: "#74b9ff", color: "white" },
+      assigned: { backgroundColor: "#fd79a8", color: "white" },
+      "in-progress": { backgroundColor: "#fdcb6e", color: "#2d3436" },
+      resolved: { backgroundColor: "#00b894", color: "white" },
     };
 
-    const colors = statusColors[status] || { backgroundColor: '#ddd', color: '#333' };
+    const colors = statusColors[status] || {
+      backgroundColor: "#ddd",
+      color: "#333",
+    };
 
     return (
-      <span style={{
-        ...styles.statusBadge,
-        ...colors
-      }}>
-        {status.replace('-', ' ').toUpperCase()}
+      <span
+        style={{
+          ...styles.statusBadge,
+          ...colors,
+        }}
+      >
+        {status.replace("-", " ").toUpperCase()}
       </span>
     );
   };
 
   const getPriorityColor = (priority) => {
     switch (priority) {
-      case 'high': return '#dc3545';
-      case 'medium': return '#ffc107';
-      case 'low': return '#28a745';
-      default: return '#6c757d';
+      case "high":
+        return "#dc3545";
+      case "medium":
+        return "#ffc107";
+      case "low":
+        return "#28a745";
+      default:
+        return "#6c757d";
     }
   };
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
   const formatDateShort = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
@@ -164,18 +189,18 @@ const IssueDetail = ({ user }) => {
       date: new Date().toISOString(),
       action: `Status updated to ${statusUpdate}`,
       user: user.name,
-      type: 'status-update',
-      details: `Status changed from ${issue.status} to ${statusUpdate}`
+      type: "status-update",
+      details: `Status changed from ${issue.status} to ${statusUpdate}`,
     };
 
-    setIssue(prev => ({
+    setIssue((prev) => ({
       ...prev,
       status: statusUpdate,
-      timeline: [...prev.timeline, newTimelineEntry]
+      timeline: [...prev.timeline, newTimelineEntry],
     }));
 
     setShowUpdateModal(false);
-    setStatusUpdate('');
+    setStatusUpdate("");
   };
 
   const handleAddComment = () => {
@@ -185,25 +210,31 @@ const IssueDetail = ({ user }) => {
       id: Date.now(),
       user: user.name,
       date: new Date().toISOString(),
-      message: newComment
+      message: newComment,
     };
 
-    setIssue(prev => ({
+    setIssue((prev) => ({
       ...prev,
-      comments: [...prev.comments, newCommentObj]
+      comments: [...prev.comments, newCommentObj],
     }));
 
-    setNewComment('');
+    setNewComment("");
   };
 
   const getTimelineIcon = (type) => {
     switch (type) {
-      case 'report': return <AlertTriangle size={16} />;
-      case 'verification': return <CheckCircle size={16} />;
-      case 'assignment': return <User size={16} />;
-      case 'progress': return <Clock size={16} />;
-      case 'status-update': return <Edit size={16} />;
-      default: return <Clock size={16} />;
+      case "report":
+        return <AlertTriangle size={16} />;
+      case "verification":
+        return <CheckCircle size={16} />;
+      case "assignment":
+        return <User size={16} />;
+      case "progress":
+        return <Clock size={16} />;
+      case "status-update":
+        return <Edit size={16} />;
+      default:
+        return <Clock size={16} />;
     }
   };
 
@@ -240,7 +271,7 @@ const IssueDetail = ({ user }) => {
           Back to Issues
         </button>
         <div style={styles.headerActions}>
-          {user.role !== 'staff' && (
+          {user.role !== "staff" && (
             <button
               style={styles.updateButton}
               onClick={() => setShowUpdateModal(true)}
@@ -257,14 +288,18 @@ const IssueDetail = ({ user }) => {
         <div style={styles.mainSection}>
           <div style={styles.issueHeader}>
             <div style={styles.issueTitle}>
-              <h1>Issue #{issue.id}: {issue.title}</h1>
+              <h1>
+                Issue #{issue.id}: {issue.title}
+              </h1>
               <div style={styles.badges}>
                 {getStatusBadge(issue.status)}
-                <span style={{
-                  ...styles.priorityBadge,
-                  backgroundColor: getPriorityColor(issue.priority),
-                  color: issue.priority === 'medium' ? '#000' : '#fff'
-                }}>
+                <span
+                  style={{
+                    ...styles.priorityBadge,
+                    backgroundColor: getPriorityColor(issue.priority),
+                    color: issue.priority === "medium" ? "#000" : "#fff",
+                  }}
+                >
                   {issue.priority.toUpperCase()} PRIORITY
                 </span>
               </div>
@@ -285,7 +320,9 @@ const IssueDetail = ({ user }) => {
                 <div>
                   <div>{issue.location.address}</div>
                   {issue.location.landmark && (
-                    <div style={styles.landmark}>Near: {issue.location.landmark}</div>
+                    <div style={styles.landmark}>
+                      Near: {issue.location.landmark}
+                    </div>
                   )}
                 </div>
               </div>
@@ -327,10 +364,17 @@ const IssueDetail = ({ user }) => {
           {/* Images Section */}
           {issue.images && issue.images.length > 0 && (
             <div style={styles.imagesSection}>
-              <h3><Camera size={20} /> Issue Images</h3>
+              <h3>
+                <Camera size={20} /> Issue Images
+              </h3>
               <div style={styles.imagesGrid}>
                 {issue.images.map((image, index) => (
-                  <img key={index} src={image} alt={`Issue ${index + 1}`} style={styles.imagePreview} />
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`Issue ${index + 1}`}
+                    style={styles.imagePreview}
+                  />
                 ))}
               </div>
             </div>
@@ -339,10 +383,17 @@ const IssueDetail = ({ user }) => {
           {/* Progress Images */}
           {issue.progressImages && issue.progressImages.length > 0 && (
             <div style={styles.imagesSection}>
-              <h3><Camera size={20} /> Progress Images</h3>
+              <h3>
+                <Camera size={20} /> Progress Images
+              </h3>
               <div style={styles.imagesGrid}>
                 {issue.progressImages.map((image, index) => (
-                  <img key={index} src={image} alt={`Progress ${index + 1}`} style={styles.imagePreview} />
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`Progress ${index + 1}`}
+                    style={styles.imagePreview}
+                  />
                 ))}
               </div>
             </div>
@@ -354,7 +405,9 @@ const IssueDetail = ({ user }) => {
               <h4>Tags</h4>
               <div style={styles.chipContainer}>
                 {issue.tags.map((tag, index) => (
-                  <span key={index} style={styles.chip}>{tag}</span>
+                  <span key={index} style={styles.chip}>
+                    {tag}
+                  </span>
                 ))}
               </div>
             </div>
@@ -375,7 +428,9 @@ const IssueDetail = ({ user }) => {
                   <div style={styles.timelineContent}>
                     <div style={styles.timelineAction}>{event.action}</div>
                     <div style={styles.timelineUser}>by {event.user}</div>
-                    <div style={styles.timelineDate}>{formatDateShort(event.date)}</div>
+                    <div style={styles.timelineDate}>
+                      {formatDateShort(event.date)}
+                    </div>
                     {event.details && (
                       <div style={styles.timelineDetails}>{event.details}</div>
                     )}
@@ -387,13 +442,17 @@ const IssueDetail = ({ user }) => {
 
           {/* Comments */}
           <div style={styles.commentsSection}>
-            <h3><MessageSquare size={20} /> Comments</h3>
+            <h3>
+              <MessageSquare size={20} /> Comments
+            </h3>
             <div style={styles.comments}>
               {issue.comments.map((comment) => (
                 <div key={comment.id} style={styles.comment}>
                   <div style={styles.commentHeader}>
                     <strong>{comment.user}</strong>
-                    <span style={styles.commentDate}>{formatDateShort(comment.date)}</span>
+                    <span style={styles.commentDate}>
+                      {formatDateShort(comment.date)}
+                    </span>
                   </div>
                   <div style={styles.commentMessage}>{comment.message}</div>
                 </div>
@@ -423,11 +482,17 @@ const IssueDetail = ({ user }) => {
 
       {/* Status Update Modal */}
       {showUpdateModal && (
-        <div style={styles.modalOverlay} onClick={() => setShowUpdateModal(false)}>
+        <div
+          style={styles.modalOverlay}
+          onClick={() => setShowUpdateModal(false)}
+        >
           <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
             <div style={styles.modalHeader}>
               <h2>Update Issue Status</h2>
-              <button style={styles.closeButton} onClick={() => setShowUpdateModal(false)}>
+              <button
+                style={styles.closeButton}
+                onClick={() => setShowUpdateModal(false)}
+              >
                 ×
               </button>
             </div>
@@ -450,7 +515,10 @@ const IssueDetail = ({ user }) => {
                 </select>
               </div>
               <div style={styles.modalActions}>
-                <button style={styles.cancelButton} onClick={() => setShowUpdateModal(false)}>
+                <button
+                  style={styles.cancelButton}
+                  onClick={() => setShowUpdateModal(false)}
+                >
                   Cancel
                 </button>
                 <button
@@ -473,7 +541,7 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: "#f8f9fa",
-    minHeight: "100vh"
+    minHeight: "100vh",
   },
   loadingContainer: {
     display: "flex",
@@ -481,7 +549,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     height: "400px",
-    color: "#6c757d"
+    color: "#6c757d",
   },
   loadingSpinner: {
     width: "40px",
@@ -490,12 +558,12 @@ const styles = {
     borderTop: "4px solid #007bff",
     borderRadius: "50%",
     animation: "spin 1s linear infinite",
-    marginBottom: "16px"
+    marginBottom: "16px",
   },
   errorContainer: {
     textAlign: "center",
     padding: "60px 20px",
-    color: "#6c757d"
+    color: "#6c757d",
   },
   header: {
     display: "flex",
@@ -503,7 +571,7 @@ const styles = {
     alignItems: "center",
     padding: "20px 24px",
     backgroundColor: "white",
-    borderBottom: "1px solid #e9ecef"
+    borderBottom: "1px solid #e9ecef",
   },
   backButton: {
     display: "flex",
@@ -516,11 +584,11 @@ const styles = {
     borderRadius: "4px",
     cursor: "pointer",
     fontSize: "14px",
-    fontWeight: "500"
+    fontWeight: "500",
   },
   headerActions: {
     display: "flex",
-    gap: "12px"
+    gap: "12px",
   },
   updateButton: {
     display: "flex",
@@ -533,43 +601,43 @@ const styles = {
     borderRadius: "4px",
     cursor: "pointer",
     fontSize: "14px",
-    fontWeight: "500"
+    fontWeight: "500",
   },
   content: {
     display: "flex",
     gap: "24px",
     padding: "24px",
     maxWidth: "1400px",
-    margin: "0 auto"
+    margin: "0 auto",
   },
   mainSection: {
     flex: 2,
     display: "flex",
     flexDirection: "column",
-    gap: "24px"
+    gap: "24px",
   },
   sidebar: {
     flex: 1,
     display: "flex",
     flexDirection: "column",
-    gap: "24px"
+    gap: "24px",
   },
   issueHeader: {
     backgroundColor: "white",
     padding: "24px",
     borderRadius: "8px",
-    border: "1px solid #e9ecef"
+    border: "1px solid #e9ecef",
   },
   issueTitle: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    gap: "16px"
+    gap: "16px",
   },
   badges: {
     display: "flex",
     gap: "8px",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
   },
   statusBadge: {
     display: "inline-block",
@@ -577,7 +645,7 @@ const styles = {
     borderRadius: "12px",
     fontSize: "12px",
     fontWeight: "600",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
   priorityBadge: {
     display: "inline-block",
@@ -585,56 +653,56 @@ const styles = {
     borderRadius: "12px",
     fontSize: "12px",
     fontWeight: "600",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
   issueDescription: {
     backgroundColor: "white",
     padding: "24px",
     borderRadius: "8px",
-    border: "1px solid #e9ecef"
+    border: "1px solid #e9ecef",
   },
   detailsGrid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-    gap: "16px"
+    gap: "16px",
   },
   detailCard: {
     backgroundColor: "white",
     padding: "20px",
     borderRadius: "8px",
-    border: "1px solid #e9ecef"
+    border: "1px solid #e9ecef",
   },
   detailItem: {
     display: "flex",
     alignItems: "flex-start",
     gap: "12px",
-    marginTop: "8px"
+    marginTop: "8px",
   },
   landmark: {
     fontSize: "14px",
     color: "#6c757d",
-    marginTop: "4px"
+    marginTop: "4px",
   },
   contactInfo: {
     fontSize: "14px",
     color: "#6c757d",
-    fontFamily: "monospace"
+    fontFamily: "monospace",
   },
   roleInfo: {
     fontSize: "14px",
-    color: "#6c757d"
+    color: "#6c757d",
   },
   imagesSection: {
     backgroundColor: "white",
     padding: "24px",
     borderRadius: "8px",
-    border: "1px solid #e9ecef"
+    border: "1px solid #e9ecef",
   },
   imagesGrid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
     gap: "16px",
-    marginTop: "16px"
+    marginTop: "16px",
   },
   imagePreview: {
     width: "100%",
@@ -642,42 +710,42 @@ const styles = {
     borderRadius: "8px",
     objectFit: "cover",
     border: "1px solid #e9ecef",
-    cursor: "pointer"
+    cursor: "pointer",
   },
   tagsSection: {
     backgroundColor: "white",
     padding: "24px",
     borderRadius: "8px",
-    border: "1px solid #e9ecef"
+    border: "1px solid #e9ecef",
   },
   chipContainer: {
     display: "flex",
     flexWrap: "wrap",
     gap: "8px",
-    marginTop: "12px"
+    marginTop: "12px",
   },
   chip: {
     padding: "6px 12px",
     backgroundColor: "#e9ecef",
     borderRadius: "16px",
     fontSize: "12px",
-    color: "#6c757d"
+    color: "#6c757d",
   },
   timelineSection: {
     backgroundColor: "white",
     padding: "24px",
     borderRadius: "8px",
-    border: "1px solid #e9ecef"
+    border: "1px solid #e9ecef",
   },
   timeline: {
-    marginTop: "16px"
+    marginTop: "16px",
   },
   timelineItem: {
     display: "flex",
     gap: "12px",
     marginBottom: "20px",
     paddingBottom: "16px",
-    borderBottom: "1px solid #f8f9fa"
+    borderBottom: "1px solid #f8f9fa",
   },
   timelineIcon: {
     width: "32px",
@@ -688,66 +756,66 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     color: "#6c757d",
-    flexShrink: 0
+    flexShrink: 0,
   },
   timelineContent: {
-    flex: 1
+    flex: 1,
   },
   timelineAction: {
     fontWeight: "600",
     color: "#343a40",
-    marginBottom: "4px"
+    marginBottom: "4px",
   },
   timelineUser: {
     fontSize: "14px",
     color: "#6c757d",
-    marginBottom: "2px"
+    marginBottom: "2px",
   },
   timelineDate: {
     fontSize: "12px",
     color: "#adb5bd",
-    marginBottom: "8px"
+    marginBottom: "8px",
   },
   timelineDetails: {
     fontSize: "14px",
     color: "#6c757d",
-    fontStyle: "italic"
+    fontStyle: "italic",
   },
   commentsSection: {
     backgroundColor: "white",
     padding: "24px",
     borderRadius: "8px",
-    border: "1px solid #e9ecef"
+    border: "1px solid #e9ecef",
   },
   comments: {
     marginTop: "16px",
-    marginBottom: "16px"
+    marginBottom: "16px",
   },
   comment: {
     padding: "12px",
     backgroundColor: "#f8f9fa",
     borderRadius: "6px",
-    marginBottom: "12px"
+    marginBottom: "12px",
   },
   commentHeader: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: "8px"
+    marginBottom: "8px",
   },
   commentDate: {
     fontSize: "12px",
-    color: "#adb5bd"
+    color: "#adb5bd",
   },
   commentMessage: {
     fontSize: "14px",
     color: "#343a40",
-    lineHeight: "1.4"
+    lineHeight: "1.4",
   },
   addComment: {
     marginTop: "16px",
     paddingTop: "16px",
-    borderTop: "1px solid #e9ecef"
+    borderTop: "1px solid #e9ecef",
   },
   commentInput: {
     width: "100%",
@@ -756,7 +824,7 @@ const styles = {
     borderRadius: "6px",
     fontSize: "14px",
     resize: "vertical",
-    marginBottom: "12px"
+    marginBottom: "12px",
   },
   commentButton: {
     padding: "8px 16px",
@@ -766,7 +834,7 @@ const styles = {
     borderRadius: "4px",
     cursor: "pointer",
     fontSize: "14px",
-    fontWeight: "500"
+    fontWeight: "500",
   },
   modalOverlay: {
     position: "fixed",
@@ -778,14 +846,14 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    zIndex: 1000
+    zIndex: 1000,
   },
   modal: {
     backgroundColor: "white",
     borderRadius: "8px",
     padding: "24px",
     maxWidth: "500px",
-    width: "90%"
+    width: "90%",
   },
   modalHeader: {
     display: "flex",
@@ -793,7 +861,7 @@ const styles = {
     alignItems: "center",
     marginBottom: "20px",
     paddingBottom: "16px",
-    borderBottom: "1px solid #e9ecef"
+    borderBottom: "1px solid #e9ecef",
   },
   closeButton: {
     background: "none",
@@ -802,29 +870,29 @@ const styles = {
     cursor: "pointer",
     color: "#6c757d",
     padding: "0",
-    lineHeight: 1
+    lineHeight: 1,
   },
   modalContent: {
     display: "flex",
     flexDirection: "column",
-    gap: "16px"
+    gap: "16px",
   },
   formGroup: {
     display: "flex",
     flexDirection: "column",
-    gap: "8px"
+    gap: "8px",
   },
   input: {
     padding: "12px",
     border: "1px solid #ddd",
     borderRadius: "4px",
-    fontSize: "14px"
+    fontSize: "14px",
   },
   modalActions: {
     display: "flex",
     gap: "12px",
     justifyContent: "flex-end",
-    marginTop: "20px"
+    marginTop: "20px",
   },
   cancelButton: {
     padding: "8px 16px",
@@ -833,7 +901,7 @@ const styles = {
     border: "none",
     borderRadius: "4px",
     cursor: "pointer",
-    fontSize: "14px"
+    fontSize: "14px",
   },
   confirmButton: {
     padding: "8px 16px",
@@ -842,8 +910,8 @@ const styles = {
     border: "none",
     borderRadius: "4px",
     cursor: "pointer",
-    fontSize: "14px"
-  }
+    fontSize: "14px",
+  },
 };
 
 export default IssueDetail;

@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { BarChart3, TrendingUp, Calendar, MapPin, Filter, Download, RefreshCw } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import {
+  BarChart3,
+  TrendingUp,
+  Calendar,
+  MapPin,
+  Filter,
+  Download,
+  RefreshCw,
+} from "lucide-react";
 
 const Analytics = ({ user }) => {
   const [analytics, setAnalytics] = useState({});
-  const [timeRange, setTimeRange] = useState('month');
-  const [selectedWard, setSelectedWard] = useState('all');
+  const [timeRange, setTimeRange] = useState("month");
+  const [selectedWard, setSelectedWard] = useState("all");
   const [loading, setLoading] = useState(false);
 
   // Mock analytics data
@@ -18,79 +26,112 @@ const Analytics = ({ user }) => {
           resolvedIssues: 892,
           averageResolutionTime: 3.2,
           resolutionRate: 71.5,
-          trendsUp: true
+          trendsUp: true,
         },
         issuesByStatus: [
-          { status: 'New', count: 156, percentage: 12.5 },
-          { status: 'Verified', count: 89, percentage: 7.1 },
-          { status: 'Assigned', count: 110, percentage: 8.8 },
-          { status: 'In Progress', count: 234, percentage: 18.8 },
-          { status: 'Resolved', count: 658, percentage: 52.8 }
+          { status: "New", count: 156, percentage: 12.5 },
+          { status: "Verified", count: 89, percentage: 7.1 },
+          { status: "Assigned", count: 110, percentage: 8.8 },
+          { status: "In Progress", count: 234, percentage: 18.8 },
+          { status: "Resolved", count: 658, percentage: 52.8 },
         ],
         issuesByCategory: [
-          { category: 'Roads', count: 325, percentage: 26.1 },
-          { category: 'Waste Management', count: 298, percentage: 23.9 },
-          { category: 'Water Supply', count: 187, percentage: 15.0 },
-          { category: 'Lighting', count: 156, percentage: 12.5 },
-          { category: 'Parks & Recreation', count: 134, percentage: 10.7 },
-          { category: 'Traffic Management', count: 89, percentage: 7.1 },
-          { category: 'Animal Control', count: 58, percentage: 4.7 }
+          { category: "Roads", count: 325, percentage: 26.1 },
+          { category: "Waste Management", count: 298, percentage: 23.9 },
+          { category: "Water Supply", count: 187, percentage: 15.0 },
+          { category: "Lighting", count: 156, percentage: 12.5 },
+          { category: "Parks & Recreation", count: 134, percentage: 10.7 },
+          { category: "Traffic Management", count: 89, percentage: 7.1 },
+          { category: "Animal Control", count: 58, percentage: 4.7 },
         ],
         issuesByWard: [
-          { ward: 'Ward 1', count: 198, resolved: 145, resolutionRate: 73.2 },
-          { ward: 'Ward 2', count: 234, resolved: 162, resolutionRate: 69.2 },
-          { ward: 'Ward 3', count: 187, resolved: 134, resolutionRate: 71.7 },
-          { ward: 'Ward 4', count: 156, resolved: 118, resolutionRate: 75.6 },
-          { ward: 'Ward 5', count: 213, resolved: 158, resolutionRate: 74.2 },
-          { ward: 'Ward 6', count: 145, resolved: 98, resolutionRate: 67.6 },
-          { ward: 'Ward 7', count: 114, resolved: 77, resolutionRate: 67.5 }
+          {
+            ward: "Jayanagar",
+            count: 198,
+            resolved: 145,
+            resolutionRate: 73.2,
+          },
+          {
+            ward: "Koramangala",
+            count: 234,
+            resolved: 162,
+            resolutionRate: 69.2,
+          },
+          {
+            ward: "Indiranagar",
+            count: 187,
+            resolved: 134,
+            resolutionRate: 71.7,
+          },
+          {
+            ward: "Malleshwaram",
+            count: 156,
+            resolved: 118,
+            resolutionRate: 75.6,
+          },
+          {
+            ward: "Whitefield",
+            count: 213,
+            resolved: 158,
+            resolutionRate: 74.2,
+          },
+          {
+            ward: "BTM Layout",
+            count: 145,
+            resolved: 98,
+            resolutionRate: 67.6,
+          },
+          {
+            ward: "HSR Layout",
+            count: 114,
+            resolved: 77,
+            resolutionRate: 67.5,
+          },
         ],
         monthlyTrends: [
-          { month: 'Jul', reported: 89, resolved: 67 },
-          { month: 'Aug', reported: 134, resolved: 98 },
-          { month: 'Sep', reported: 156, resolved: 124 },
-          { month: 'Oct', reported: 187, resolved: 143 },
-          { month: 'Nov', reported: 198, resolved: 156 },
-          { month: 'Dec', reported: 234, resolved: 189 },
-          { month: 'Jan', reported: 249, resolved: 215 }
+          { month: "Jul", reported: 89, resolved: 67 },
+          { month: "Aug", reported: 134, resolved: 98 },
+          { month: "Sep", reported: 156, resolved: 124 },
+          { month: "Oct", reported: 187, resolved: 143 },
+          { month: "Nov", reported: 198, resolved: 156 },
+          { month: "Dec", reported: 234, resolved: 189 },
+          { month: "Jan", reported: 249, resolved: 215 },
         ],
         priorityDistribution: [
-          { priority: 'High', count: 187, percentage: 15.0 },
-          { priority: 'Medium', count: 623, percentage: 49.9 },
-          { priority: 'Low', count: 437, percentage: 35.1 }
+          { priority: "High", count: 187, percentage: 15.0 },
+          { priority: "Medium", count: 623, percentage: 49.9 },
+          { priority: "Low", count: 437, percentage: 35.1 },
         ],
         workerPerformance: [
-          { name: 'Sarah Wilson', assigned: 34, completed: 32, rate: 94.1 },
-          { name: 'Mike Johnson', assigned: 28, completed: 25, rate: 89.3 },
-          { name: 'John Smith', assigned: 31, completed: 26, rate: 83.9 },
-          { name: 'Emily Davis', assigned: 25, completed: 21, rate: 84.0 },
-          { name: 'Tom Brown', assigned: 22, completed: 17, rate: 77.3 }
-        ]
+          { name: "Kavitha Nair", assigned: 34, completed: 32, rate: 94.1 },
+          { name: "Suresh Patel", assigned: 28, completed: 25, rate: 89.3 },
+          { name: "Rajesh Kumar", assigned: 31, completed: 26, rate: 83.9 },
+          { name: "Priya Sharma", assigned: 25, completed: 21, rate: 84.0 },
+          { name: "Ravi Krishnan", assigned: 22, completed: 17, rate: 77.3 },
+        ],
       };
       setAnalytics(mockAnalytics);
       setLoading(false);
     }, 1000);
   }, [timeRange, selectedWard]);
 
-  const renderBarChart = (data, dataKey, colorKey = '#007bff') => (
+  const renderBarChart = (data, dataKey, colorKey = "#007bff") => (
     <div style={styles.barChart}>
       {data.map((item, index) => (
         <div key={index} style={styles.barChartItem}>
-          <div style={styles.barChartLabel}>
-            {item[Object.keys(item)[0]]}
-          </div>
+          <div style={styles.barChartLabel}>{item[Object.keys(item)[0]]}</div>
           <div style={styles.barChartBar}>
             <div
               style={{
                 ...styles.barChartFill,
-                width: `${(item[dataKey] / Math.max(...data.map(d => d[dataKey]))) * 100}%`,
-                backgroundColor: Array.isArray(colorKey) ? colorKey[index % colorKey.length] : colorKey
+                width: `${(item[dataKey] / Math.max(...data.map((d) => d[dataKey]))) * 100}%`,
+                backgroundColor: Array.isArray(colorKey)
+                  ? colorKey[index % colorKey.length]
+                  : colorKey,
               }}
             />
           </div>
-          <div style={styles.barChartValue}>
-            {item[dataKey]}
-          </div>
+          <div style={styles.barChartValue}>{item[dataKey]}</div>
         </div>
       ))}
     </div>
@@ -105,7 +146,7 @@ const Analytics = ({ user }) => {
             style={{
               ...styles.pieSlice,
               backgroundColor: colors[index % colors.length],
-              flex: item.percentage
+              flex: item.percentage,
             }}
           />
         ))}
@@ -116,7 +157,7 @@ const Analytics = ({ user }) => {
             <div
               style={{
                 ...styles.legendColor,
-                backgroundColor: colors[index % colors.length]
+                backgroundColor: colors[index % colors.length],
               }}
             />
             <span style={styles.legendLabel}>
@@ -136,23 +177,34 @@ const Analytics = ({ user }) => {
 
   const exportReport = () => {
     // Simulate export functionality
-    alert('Report exported successfully!');
+    alert("Report exported successfully!");
   };
 
   if (loading || !analytics.overview) {
     return (
       <div style={styles.container}>
         <div style={styles.loadingContainer}>
-          <RefreshCw size={48} style={{ animation: 'spin 1s linear infinite' }} />
+          <RefreshCw
+            size={48}
+            style={{ animation: "spin 1s linear infinite" }}
+          />
           <p style={styles.loadingText}>Loading analytics...</p>
         </div>
       </div>
     );
   }
 
-  const statusColors = ['#ffeaa7', '#74b9ff', '#fd79a8', '#fdcb6e', '#00b894'];
-  const categoryColors = ['#e17055', '#00b894', '#0984e3', '#fdcb6e', '#6c5ce7', '#fd79a8', '#00cec9'];
-  const priorityColors = ['#e17055', '#fdcb6e', '#00b894'];
+  const statusColors = ["#ffeaa7", "#74b9ff", "#fd79a8", "#fdcb6e", "#00b894"];
+  const categoryColors = [
+    "#e17055",
+    "#00b894",
+    "#0984e3",
+    "#fdcb6e",
+    "#6c5ce7",
+    "#fd79a8",
+    "#00cec9",
+  ];
+  const priorityColors = ["#e17055", "#fdcb6e", "#00b894"];
 
   return (
     <div style={styles.container}>
@@ -176,13 +228,13 @@ const Analytics = ({ user }) => {
             onChange={(e) => setSelectedWard(e.target.value)}
           >
             <option value="all">All Wards</option>
-            <option value="ward1">Ward 1</option>
-            <option value="ward2">Ward 2</option>
-            <option value="ward3">Ward 3</option>
-            <option value="ward4">Ward 4</option>
-            <option value="ward5">Ward 5</option>
-            <option value="ward6">Ward 6</option>
-            <option value="ward7">Ward 7</option>
+            <option value="jayanagar">Jayanagar</option>
+            <option value="koramangala">Koramangala</option>
+            <option value="indiranagar">Indiranagar</option>
+            <option value="malleshwaram">Malleshwaram</option>
+            <option value="whitefield">Whitefield</option>
+            <option value="btmlayout">BTM Layout</option>
+            <option value="hsrlayout">HSR Layout</option>
           </select>
         </div>
 
@@ -203,20 +255,24 @@ const Analytics = ({ user }) => {
         <div style={styles.overviewCard}>
           <div style={styles.overviewHeader}>
             <h3 style={styles.overviewTitle}>Total Issues</h3>
-            <BarChart3 size={24} style={{ color: '#007bff' }} />
+            <BarChart3 size={24} style={{ color: "#007bff" }} />
           </div>
-          <div style={styles.overviewValue}>{analytics.overview.totalIssues.toLocaleString()}</div>
+          <div style={styles.overviewValue}>
+            {analytics.overview.totalIssues.toLocaleString()}
+          </div>
           <div style={styles.overviewSubtext}>
-            {analytics.overview.trendsUp ? '↗️' : '↘️'} vs last period
+            {analytics.overview.trendsUp ? "↗️" : "↘️"} vs last period
           </div>
         </div>
 
         <div style={styles.overviewCard}>
           <div style={styles.overviewHeader}>
             <h3 style={styles.overviewTitle}>Resolved Issues</h3>
-            <TrendingUp size={24} style={{ color: '#28a745' }} />
+            <TrendingUp size={24} style={{ color: "#28a745" }} />
           </div>
-          <div style={styles.overviewValue}>{analytics.overview.resolvedIssues.toLocaleString()}</div>
+          <div style={styles.overviewValue}>
+            {analytics.overview.resolvedIssues.toLocaleString()}
+          </div>
           <div style={styles.overviewSubtext}>
             {analytics.overview.resolutionRate}% resolution rate
           </div>
@@ -225,12 +281,12 @@ const Analytics = ({ user }) => {
         <div style={styles.overviewCard}>
           <div style={styles.overviewHeader}>
             <h3 style={styles.overviewTitle}>Avg Resolution Time</h3>
-            <Calendar size={24} style={{ color: '#ffc107' }} />
+            <Calendar size={24} style={{ color: "#ffc107" }} />
           </div>
-          <div style={styles.overviewValue}>{analytics.overview.averageResolutionTime} days</div>
-          <div style={styles.overviewSubtext}>
-            Target: 5 days
+          <div style={styles.overviewValue}>
+            {analytics.overview.averageResolutionTime} days
           </div>
+          <div style={styles.overviewSubtext}>Target: 5 days</div>
         </div>
       </div>
 
@@ -239,7 +295,7 @@ const Analytics = ({ user }) => {
         {/* Issues by Status */}
         <div style={styles.chartCard}>
           <h3 style={styles.chartTitle}>Issues by Status</h3>
-          {renderBarChart(analytics.issuesByStatus, 'count', statusColors)}
+          {renderBarChart(analytics.issuesByStatus, "count", statusColors)}
         </div>
 
         {/* Issues by Category */}
@@ -266,7 +322,7 @@ const Analytics = ({ user }) => {
                     style={{
                       ...styles.lineChartBar,
                       height: `${(item.reported / 250) * 100}px`,
-                      backgroundColor: '#007bff'
+                      backgroundColor: "#007bff",
                     }}
                     title={`Reported: ${item.reported}`}
                   />
@@ -274,7 +330,7 @@ const Analytics = ({ user }) => {
                     style={{
                       ...styles.lineChartBar,
                       height: `${(item.resolved / 250) * 100}px`,
-                      backgroundColor: '#28a745'
+                      backgroundColor: "#28a745",
                     }}
                     title={`Resolved: ${item.resolved}`}
                   />
@@ -284,11 +340,15 @@ const Analytics = ({ user }) => {
           </div>
           <div style={styles.chartLegend}>
             <div style={styles.legendItem}>
-              <div style={{...styles.legendColor, backgroundColor: '#007bff'}} />
+              <div
+                style={{ ...styles.legendColor, backgroundColor: "#007bff" }}
+              />
               <span>Reported</span>
             </div>
             <div style={styles.legendItem}>
-              <div style={{...styles.legendColor, backgroundColor: '#28a745'}} />
+              <div
+                style={{ ...styles.legendColor, backgroundColor: "#28a745" }}
+              />
               <span>Resolved</span>
             </div>
           </div>
@@ -309,10 +369,12 @@ const Analytics = ({ user }) => {
                 <span style={styles.wardName}>{ward.ward}</span>
                 <span style={styles.wardCount}>{ward.count}</span>
                 <span style={styles.wardResolved}>{ward.resolved}</span>
-                <span style={{
-                  ...styles.wardRate,
-                  color: ward.resolutionRate >= 70 ? '#28a745' : '#ffc107'
-                }}>
+                <span
+                  style={{
+                    ...styles.wardRate,
+                    color: ward.resolutionRate >= 70 ? "#28a745" : "#ffc107",
+                  }}
+                >
                   {ward.resolutionRate}%
                 </span>
               </div>
@@ -337,7 +399,12 @@ const Analytics = ({ user }) => {
                     style={{
                       ...styles.workerRateBar,
                       width: `${worker.rate}%`,
-                      backgroundColor: worker.rate >= 90 ? '#28a745' : worker.rate >= 80 ? '#ffc107' : '#dc3545'
+                      backgroundColor:
+                        worker.rate >= 90
+                          ? "#28a745"
+                          : worker.rate >= 80
+                            ? "#ffc107"
+                            : "#dc3545",
                     }}
                   />
                   <span style={styles.workerRateText}>{worker.rate}%</span>
@@ -354,7 +421,7 @@ const Analytics = ({ user }) => {
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
   },
   loadingContainer: {
     display: "flex",
@@ -362,11 +429,11 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     height: "400px",
-    color: "#6c757d"
+    color: "#6c757d",
   },
   loadingText: {
     marginTop: "16px",
-    fontSize: "16px"
+    fontSize: "16px",
   },
   controls: {
     display: "flex",
@@ -376,22 +443,22 @@ const styles = {
     padding: "16px",
     backgroundColor: "white",
     borderRadius: "8px",
-    border: "1px solid #e9ecef"
+    border: "1px solid #e9ecef",
   },
   controlsLeft: {
     display: "flex",
-    gap: "12px"
+    gap: "12px",
   },
   controlsRight: {
     display: "flex",
-    gap: "12px"
+    gap: "12px",
   },
   select: {
     padding: "8px 12px",
     border: "1px solid #ddd",
     borderRadius: "4px",
     backgroundColor: "white",
-    fontSize: "14px"
+    fontSize: "14px",
   },
   actionButton: {
     display: "flex",
@@ -404,134 +471,134 @@ const styles = {
     borderRadius: "4px",
     cursor: "pointer",
     fontSize: "14px",
-    fontWeight: "500"
+    fontWeight: "500",
   },
   overviewGrid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
     gap: "20px",
-    marginBottom: "32px"
+    marginBottom: "32px",
   },
   overviewCard: {
     backgroundColor: "white",
     padding: "24px",
     borderRadius: "8px",
     border: "1px solid #e9ecef",
-    boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+    boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
   },
   overviewHeader: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: "16px"
+    marginBottom: "16px",
   },
   overviewTitle: {
     margin: 0,
     fontSize: "16px",
     fontWeight: "600",
-    color: "#6c757d"
+    color: "#6c757d",
   },
   overviewValue: {
     fontSize: "32px",
     fontWeight: "700",
     color: "#343a40",
-    marginBottom: "8px"
+    marginBottom: "8px",
   },
   overviewSubtext: {
     fontSize: "14px",
-    color: "#6c757d"
+    color: "#6c757d",
   },
   chartsGrid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))",
-    gap: "24px"
+    gap: "24px",
   },
   chartCard: {
     backgroundColor: "white",
     padding: "24px",
     borderRadius: "8px",
     border: "1px solid #e9ecef",
-    boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+    boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
   },
   chartTitle: {
     margin: "0 0 20px 0",
     fontSize: "18px",
     fontWeight: "600",
-    color: "#343a40"
+    color: "#343a40",
   },
   barChart: {
     display: "flex",
     flexDirection: "column",
-    gap: "12px"
+    gap: "12px",
   },
   barChartItem: {
     display: "flex",
     alignItems: "center",
-    gap: "12px"
+    gap: "12px",
   },
   barChartLabel: {
     width: "80px",
     fontSize: "14px",
     color: "#6c757d",
-    textAlign: "right"
+    textAlign: "right",
   },
   barChartBar: {
     flex: 1,
     height: "20px",
     backgroundColor: "#f8f9fa",
     borderRadius: "10px",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   barChartFill: {
     height: "100%",
     borderRadius: "10px",
-    transition: "width 0.3s ease"
+    transition: "width 0.3s ease",
   },
   barChartValue: {
     width: "40px",
     fontSize: "14px",
     fontWeight: "600",
     color: "#343a40",
-    textAlign: "left"
+    textAlign: "left",
   },
   pieChartContainer: {
     display: "flex",
     flexDirection: "column",
-    gap: "20px"
+    gap: "20px",
   },
   pieChart: {
     display: "flex",
     height: "20px",
     borderRadius: "10px",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   pieSlice: {
-    minWidth: "2px"
+    minWidth: "2px",
   },
   pieChartLegend: {
     display: "flex",
     flexDirection: "column",
-    gap: "8px"
+    gap: "8px",
   },
   legendItem: {
     display: "flex",
     alignItems: "center",
-    gap: "8px"
+    gap: "8px",
   },
   legendColor: {
     width: "12px",
     height: "12px",
-    borderRadius: "2px"
+    borderRadius: "2px",
   },
   legendLabel: {
     fontSize: "14px",
-    color: "#6c757d"
+    color: "#6c757d",
   },
   chartLegend: {
     display: "flex",
     gap: "20px",
     marginTop: "16px",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   lineChart: {
     display: "flex",
@@ -539,32 +606,32 @@ const styles = {
     alignItems: "end",
     height: "200px",
     padding: "20px 0",
-    borderBottom: "1px solid #e9ecef"
+    borderBottom: "1px solid #e9ecef",
   },
   lineChartItem: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    gap: "8px"
+    gap: "8px",
   },
   lineChartMonth: {
     fontSize: "12px",
-    color: "#6c757d"
+    color: "#6c757d",
   },
   lineChartBars: {
     display: "flex",
     gap: "4px",
-    alignItems: "end"
+    alignItems: "end",
   },
   lineChartBar: {
     width: "12px",
     minHeight: "2px",
-    borderRadius: "2px"
+    borderRadius: "2px",
   },
   wardTable: {
     display: "flex",
     flexDirection: "column",
-    gap: "8px"
+    gap: "8px",
   },
   wardTableHeader: {
     display: "grid",
@@ -574,7 +641,7 @@ const styles = {
     fontSize: "14px",
     fontWeight: "600",
     color: "#6c757d",
-    borderBottom: "1px solid #e9ecef"
+    borderBottom: "1px solid #e9ecef",
   },
   wardTableRow: {
     display: "grid",
@@ -582,64 +649,64 @@ const styles = {
     gap: "16px",
     padding: "12px 0",
     fontSize: "14px",
-    borderBottom: "1px solid #f8f9fa"
+    borderBottom: "1px solid #f8f9fa",
   },
   wardName: {
     fontWeight: "600",
-    color: "#343a40"
+    color: "#343a40",
   },
   wardCount: {
-    color: "#6c757d"
+    color: "#6c757d",
   },
   wardResolved: {
     color: "#28a745",
-    fontWeight: "500"
+    fontWeight: "500",
   },
   wardRate: {
-    fontWeight: "600"
+    fontWeight: "600",
   },
   workerTable: {
     display: "flex",
     flexDirection: "column",
-    gap: "16px"
+    gap: "16px",
   },
   workerRow: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     padding: "12px 0",
-    borderBottom: "1px solid #f8f9fa"
+    borderBottom: "1px solid #f8f9fa",
   },
   workerInfo: {
     display: "flex",
     flexDirection: "column",
-    gap: "4px"
+    gap: "4px",
   },
   workerName: {
     fontSize: "14px",
     fontWeight: "600",
-    color: "#343a40"
+    color: "#343a40",
   },
   workerStats: {
     fontSize: "12px",
-    color: "#6c757d"
+    color: "#6c757d",
   },
   workerRate: {
     display: "flex",
     alignItems: "center",
     gap: "8px",
-    width: "120px"
+    width: "120px",
   },
   workerRateBar: {
     height: "8px",
     borderRadius: "4px",
-    transition: "width 0.3s ease"
+    transition: "width 0.3s ease",
   },
   workerRateText: {
     fontSize: "12px",
     fontWeight: "600",
-    color: "#343a40"
-  }
+    color: "#343a40",
+  },
 };
 
 export default Analytics;

@@ -1,5 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Users, MapPin, Clock, CheckCircle, AlertTriangle, Search, Filter, Plus } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import {
+  Users,
+  MapPin,
+  Clock,
+  CheckCircle,
+  AlertTriangle,
+  Search,
+  Filter,
+  Plus,
+} from "lucide-react";
 
 const Assignments = ({ user }) => {
   const [workers, setWorkers] = useState([]);
@@ -8,10 +17,10 @@ const Assignments = ({ user }) => {
   const [selectedWorker, setSelectedWorker] = useState(null);
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [selectedIssue, setSelectedIssue] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState({
-    status: 'all',
-    ward: 'all'
+    status: "all",
+    ward: "all",
   });
 
   // Mock data for workers
@@ -19,69 +28,69 @@ const Assignments = ({ user }) => {
     const mockWorkers = [
       {
         id: 1,
-        name: "John Smith",
+        name: "Rajesh Kumar",
         role: "Road Maintenance",
         phone: "+91-9876543210",
-        email: "john.smith@municipality.gov",
+        email: "rajesh.kumar@municipality.gov",
         ward: "Ward 1",
         status: "available",
         currentAssignments: 2,
         completedThisMonth: 15,
         rating: 4.8,
-        specialties: ["Potholes", "Road Repair", "Traffic Signs"]
+        specialties: ["Potholes", "Road Repair", "Traffic Signs"],
       },
       {
         id: 2,
-        name: "Sarah Wilson",
+        name: "Kavitha Nair",
         role: "Waste Management",
         phone: "+91-9876543211",
-        email: "sarah.wilson@municipality.gov",
+        email: "kavitha.nair@municipality.gov",
         ward: "Ward 2",
         status: "busy",
         currentAssignments: 5,
         completedThisMonth: 22,
         rating: 4.9,
-        specialties: ["Garbage Collection", "Recycling", "Street Cleaning"]
+        specialties: ["Garbage Collection", "Recycling", "Street Cleaning"],
       },
       {
         id: 3,
-        name: "Mike Johnson",
+        name: "Suresh Patel",
         role: "Electrical Maintenance",
         phone: "+91-9876543212",
-        email: "mike.johnson@municipality.gov",
+        email: "suresh.patel@municipality.gov",
         ward: "Ward 3",
         status: "available",
         currentAssignments: 1,
         completedThisMonth: 18,
         rating: 4.7,
-        specialties: ["Street Lights", "Electrical Repairs", "Power Lines"]
+        specialties: ["Street Lights", "Electrical Repairs", "Power Lines"],
       },
       {
         id: 4,
-        name: "Emily Davis",
+        name: "Priya Sharma",
         role: "Water & Plumbing",
         phone: "+91-9876543213",
-        email: "emily.davis@municipality.gov",
+        email: "priya.sharma@municipality.gov",
         ward: "Ward 1",
         status: "available",
         currentAssignments: 3,
         completedThisMonth: 12,
         rating: 4.6,
-        specialties: ["Pipe Repairs", "Water Leaks", "Drainage"]
+        specialties: ["Pipe Repairs", "Water Leaks", "Drainage"],
       },
       {
         id: 5,
-        name: "Tom Brown",
+        name: "Ravi Krishnan",
         role: "General Maintenance",
         phone: "+91-9876543214",
-        email: "tom.brown@municipality.gov",
+        email: "ravi.krishnan@municipality.gov",
         ward: "Ward 4",
         status: "on-leave",
         currentAssignments: 0,
         completedThisMonth: 8,
         rating: 4.5,
-        specialties: ["General Repairs", "Park Maintenance", "Building Issues"]
-      }
+        specialties: ["General Repairs", "Park Maintenance", "Building Issues"],
+      },
     ];
     setWorkers(mockWorkers);
   }, []);
@@ -94,73 +103,87 @@ const Assignments = ({ user }) => {
         title: "Broken Traffic Signal",
         category: "Traffic Management",
         priority: "high",
-        location: { address: "Main Junction, Ward 1" },
+        location: { address: "MG Road Junction, Ward 1, Bangalore" },
         reportedDate: "2024-01-16T09:00:00Z",
-        ward: "Ward 1"
+        ward: "Ward 1",
       },
       {
         id: 1241,
         title: "Overflowing Drain",
         category: "Water Supply",
         priority: "medium",
-        location: { address: "Market Street, Ward 2" },
+        location: { address: "Commercial Street, Ward 2, Bangalore" },
         reportedDate: "2024-01-16T11:30:00Z",
-        ward: "Ward 2"
+        ward: "Ward 2",
       },
       {
         id: 1242,
         title: "Park Bench Repair",
         category: "Parks & Recreation",
         priority: "low",
-        location: { address: "Central Park, Ward 3" },
+        location: { address: "Cubbon Park, Ward 3, Bangalore" },
         reportedDate: "2024-01-16T14:15:00Z",
-        ward: "Ward 3"
-      }
+        ward: "Ward 3",
+      },
     ];
     setUnassignedIssues(mockUnassignedIssues);
   }, []);
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'available': return '#28a745';
-      case 'busy': return '#ffc107';
-      case 'on-leave': return '#6c757d';
-      default: return '#007bff';
+      case "available":
+        return "#28a745";
+      case "busy":
+        return "#ffc107";
+      case "on-leave":
+        return "#6c757d";
+      default:
+        return "#007bff";
     }
   };
 
   const getPriorityColor = (priority) => {
     switch (priority) {
-      case 'high': return '#dc3545';
-      case 'medium': return '#ffc107';
-      case 'low': return '#28a745';
-      default: return '#6c757d';
+      case "high":
+        return "#dc3545";
+      case "medium":
+        return "#ffc107";
+      case "low":
+        return "#28a745";
+      default:
+        return "#6c757d";
     }
   };
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
   const handleAssignIssue = (workerId, issueId) => {
-    const worker = workers.find(w => w.id === workerId);
-    const issue = unassignedIssues.find(i => i.id === issueId);
+    const worker = workers.find((w) => w.id === workerId);
+    const issue = unassignedIssues.find((i) => i.id === issueId);
 
     if (worker && issue) {
       // Update worker's current assignments
-      setWorkers(prev => prev.map(w =>
-        w.id === workerId
-          ? { ...w, currentAssignments: w.currentAssignments + 1, status: w.currentAssignments >= 4 ? 'busy' : w.status }
-          : w
-      ));
+      setWorkers((prev) =>
+        prev.map((w) =>
+          w.id === workerId
+            ? {
+                ...w,
+                currentAssignments: w.currentAssignments + 1,
+                status: w.currentAssignments >= 4 ? "busy" : w.status,
+              }
+            : w,
+        ),
+      );
 
       // Remove from unassigned issues
-      setUnassignedIssues(prev => prev.filter(i => i.id !== issueId));
+      setUnassignedIssues((prev) => prev.filter((i) => i.id !== issueId));
 
       // Add to assignments (in a real app, this would be saved to backend)
       const newAssignment = {
@@ -170,20 +193,22 @@ const Assignments = ({ user }) => {
         issueId,
         issueTitle: issue.title,
         assignedDate: new Date().toISOString(),
-        status: 'assigned'
+        status: "assigned",
       };
 
-      setAssignments(prev => [...prev, newAssignment]);
+      setAssignments((prev) => [...prev, newAssignment]);
       setShowAssignModal(false);
       setSelectedIssue(null);
     }
   };
 
-  const filteredWorkers = workers.filter(worker => {
-    const matchesSearch = worker.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         worker.role.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = filters.status === 'all' || worker.status === filters.status;
-    const matchesWard = filters.ward === 'all' || worker.ward === filters.ward;
+  const filteredWorkers = workers.filter((worker) => {
+    const matchesSearch =
+      worker.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      worker.role.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesStatus =
+      filters.status === "all" || worker.status === filters.status;
+    const matchesWard = filters.ward === "all" || worker.ward === filters.ward;
 
     return matchesSearch && matchesStatus && matchesWard;
   });
@@ -206,7 +231,9 @@ const Assignments = ({ user }) => {
           <select
             style={styles.filterSelect}
             value={filters.status}
-            onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
+            onChange={(e) =>
+              setFilters((prev) => ({ ...prev, status: e.target.value }))
+            }
           >
             <option value="all">All Status</option>
             <option value="available">Available</option>
@@ -217,7 +244,9 @@ const Assignments = ({ user }) => {
           <select
             style={styles.filterSelect}
             value={filters.ward}
-            onChange={(e) => setFilters(prev => ({ ...prev, ward: e.target.value }))}
+            onChange={(e) =>
+              setFilters((prev) => ({ ...prev, ward: e.target.value }))
+            }
           >
             <option value="all">All Wards</option>
             <option value="Ward 1">Ward 1</option>
@@ -232,25 +261,32 @@ const Assignments = ({ user }) => {
         {/* Workers List */}
         <div style={styles.workersSection}>
           <div style={styles.sectionHeader}>
-            <h3 style={styles.sectionTitle}>Workers ({filteredWorkers.length})</h3>
+            <h3 style={styles.sectionTitle}>
+              Workers ({filteredWorkers.length})
+            </h3>
           </div>
 
           <div style={styles.workersGrid}>
-            {filteredWorkers.map(worker => (
+            {filteredWorkers.map((worker) => (
               <div key={worker.id} style={styles.workerCard}>
                 <div style={styles.workerHeader}>
                   <div style={styles.workerAvatar}>
-                    {worker.name.split(' ').map(n => n[0]).join('')}
+                    {worker.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
                   </div>
                   <div style={styles.workerInfo}>
                     <h4 style={styles.workerName}>{worker.name}</h4>
                     <p style={styles.workerRole}>{worker.role}</p>
-                    <div style={{
-                      ...styles.statusBadge,
-                      backgroundColor: getStatusColor(worker.status),
-                      color: worker.status === 'busy' ? '#000' : '#fff'
-                    }}>
-                      {worker.status.replace('-', ' ').toUpperCase()}
+                    <div
+                      style={{
+                        ...styles.statusBadge,
+                        backgroundColor: getStatusColor(worker.status),
+                        color: worker.status === "busy" ? "#000" : "#fff",
+                      }}
+                    >
+                      {worker.status.replace("-", " ").toUpperCase()}
                     </div>
                   </div>
                 </div>
@@ -258,11 +294,15 @@ const Assignments = ({ user }) => {
                 <div style={styles.workerStats}>
                   <div style={styles.statItem}>
                     <span style={styles.statLabel}>Current:</span>
-                    <span style={styles.statValue}>{worker.currentAssignments}</span>
+                    <span style={styles.statValue}>
+                      {worker.currentAssignments}
+                    </span>
                   </div>
                   <div style={styles.statItem}>
                     <span style={styles.statLabel}>Completed:</span>
-                    <span style={styles.statValue}>{worker.completedThisMonth}</span>
+                    <span style={styles.statValue}>
+                      {worker.completedThisMonth}
+                    </span>
                   </div>
                   <div style={styles.statItem}>
                     <span style={styles.statLabel}>Rating:</span>
@@ -284,7 +324,9 @@ const Assignments = ({ user }) => {
                   <h5 style={styles.specialtiesTitle}>Specialties:</h5>
                   <div style={styles.chipContainer}>
                     {worker.specialties.map((specialty, idx) => (
-                      <span key={idx} style={styles.chip}>{specialty}</span>
+                      <span key={idx} style={styles.chip}>
+                        {specialty}
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -301,22 +343,28 @@ const Assignments = ({ user }) => {
         </div>
 
         {/* Unassigned Issues */}
-        {user.role !== 'staff' && (
+        {user.role !== "staff" && (
           <div style={styles.unassignedSection}>
             <div style={styles.sectionHeader}>
-              <h3 style={styles.sectionTitle}>Unassigned Issues ({unassignedIssues.length})</h3>
+              <h3 style={styles.sectionTitle}>
+                Unassigned Issues ({unassignedIssues.length})
+              </h3>
             </div>
 
             <div style={styles.issuesList}>
-              {unassignedIssues.map(issue => (
+              {unassignedIssues.map((issue) => (
                 <div key={issue.id} style={styles.issueCard}>
                   <div style={styles.issueHeader}>
-                    <h4 style={styles.issueTitle}>#{issue.id}: {issue.title}</h4>
-                    <span style={{
-                      ...styles.priorityBadge,
-                      backgroundColor: getPriorityColor(issue.priority),
-                      color: issue.priority === 'medium' ? '#000' : '#fff'
-                    }}>
+                    <h4 style={styles.issueTitle}>
+                      #{issue.id}: {issue.title}
+                    </h4>
+                    <span
+                      style={{
+                        ...styles.priorityBadge,
+                        backgroundColor: getPriorityColor(issue.priority),
+                        color: issue.priority === "medium" ? "#000" : "#fff",
+                      }}
+                    >
                       {issue.priority.toUpperCase()}
                     </span>
                   </div>
@@ -351,11 +399,17 @@ const Assignments = ({ user }) => {
 
       {/* Worker Detail Modal */}
       {selectedWorker && (
-        <div style={styles.modalOverlay} onClick={() => setSelectedWorker(null)}>
+        <div
+          style={styles.modalOverlay}
+          onClick={() => setSelectedWorker(null)}
+        >
           <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
             <div style={styles.modalHeader}>
               <h2 style={styles.modalTitle}>{selectedWorker.name}</h2>
-              <button style={styles.closeButton} onClick={() => setSelectedWorker(null)}>
+              <button
+                style={styles.closeButton}
+                onClick={() => setSelectedWorker(null)}
+              >
                 ×
               </button>
             </div>
@@ -363,23 +417,39 @@ const Assignments = ({ user }) => {
             <div style={styles.modalContent}>
               <div style={styles.modalSection}>
                 <h4>Contact Information</h4>
-                <p><strong>Phone:</strong> {selectedWorker.phone}</p>
-                <p><strong>Email:</strong> {selectedWorker.email}</p>
-                <p><strong>Ward:</strong> {selectedWorker.ward}</p>
+                <p>
+                  <strong>Phone:</strong> {selectedWorker.phone}
+                </p>
+                <p>
+                  <strong>Email:</strong> {selectedWorker.email}
+                </p>
+                <p>
+                  <strong>Ward:</strong> {selectedWorker.ward}
+                </p>
               </div>
 
               <div style={styles.modalSection}>
                 <h4>Performance</h4>
-                <p><strong>Current Assignments:</strong> {selectedWorker.currentAssignments}</p>
-                <p><strong>Completed This Month:</strong> {selectedWorker.completedThisMonth}</p>
-                <p><strong>Rating:</strong> ⭐ {selectedWorker.rating}/5.0</p>
+                <p>
+                  <strong>Current Assignments:</strong>{" "}
+                  {selectedWorker.currentAssignments}
+                </p>
+                <p>
+                  <strong>Completed This Month:</strong>{" "}
+                  {selectedWorker.completedThisMonth}
+                </p>
+                <p>
+                  <strong>Rating:</strong> ⭐ {selectedWorker.rating}/5.0
+                </p>
               </div>
 
               <div style={styles.modalSection}>
                 <h4>Specialties</h4>
                 <div style={styles.chipContainer}>
                   {selectedWorker.specialties.map((specialty, idx) => (
-                    <span key={idx} style={styles.chip}>{specialty}</span>
+                    <span key={idx} style={styles.chip}>
+                      {specialty}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -390,11 +460,19 @@ const Assignments = ({ user }) => {
 
       {/* Assignment Modal */}
       {showAssignModal && selectedIssue && (
-        <div style={styles.modalOverlay} onClick={() => setShowAssignModal(false)}>
+        <div
+          style={styles.modalOverlay}
+          onClick={() => setShowAssignModal(false)}
+        >
           <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
             <div style={styles.modalHeader}>
-              <h2 style={styles.modalTitle}>Assign Issue #{selectedIssue.id}</h2>
-              <button style={styles.closeButton} onClick={() => setShowAssignModal(false)}>
+              <h2 style={styles.modalTitle}>
+                Assign Issue #{selectedIssue.id}
+              </h2>
+              <button
+                style={styles.closeButton}
+                onClick={() => setShowAssignModal(false)}
+              >
                 ×
               </button>
             </div>
@@ -402,34 +480,48 @@ const Assignments = ({ user }) => {
             <div style={styles.modalContent}>
               <div style={styles.modalSection}>
                 <h4>Issue Details</h4>
-                <p><strong>Title:</strong> {selectedIssue.title}</p>
-                <p><strong>Category:</strong> {selectedIssue.category}</p>
-                <p><strong>Priority:</strong> {selectedIssue.priority}</p>
-                <p><strong>Location:</strong> {selectedIssue.location.address}</p>
+                <p>
+                  <strong>Title:</strong> {selectedIssue.title}
+                </p>
+                <p>
+                  <strong>Category:</strong> {selectedIssue.category}
+                </p>
+                <p>
+                  <strong>Priority:</strong> {selectedIssue.priority}
+                </p>
+                <p>
+                  <strong>Location:</strong> {selectedIssue.location.address}
+                </p>
               </div>
 
               <div style={styles.modalSection}>
                 <h4>Select Worker</h4>
                 <div style={styles.workersList}>
                   {workers
-                    .filter(w => w.status !== 'on-leave')
-                    .map(worker => (
-                    <div
-                      key={worker.id}
-                      style={styles.workerOption}
-                      onClick={() => handleAssignIssue(worker.id, selectedIssue.id)}
-                    >
-                      <div style={styles.workerOptionInfo}>
-                        <strong>{worker.name}</strong>
-                        <span style={styles.workerOptionRole}>{worker.role}</span>
-                        <span style={styles.workerOptionWard}>{worker.ward}</span>
+                    .filter((w) => w.status !== "on-leave")
+                    .map((worker) => (
+                      <div
+                        key={worker.id}
+                        style={styles.workerOption}
+                        onClick={() =>
+                          handleAssignIssue(worker.id, selectedIssue.id)
+                        }
+                      >
+                        <div style={styles.workerOptionInfo}>
+                          <strong>{worker.name}</strong>
+                          <span style={styles.workerOptionRole}>
+                            {worker.role}
+                          </span>
+                          <span style={styles.workerOptionWard}>
+                            {worker.ward}
+                          </span>
+                        </div>
+                        <div style={styles.workerOptionStats}>
+                          <span>Current: {worker.currentAssignments}</span>
+                          <span>⭐ {worker.rating}</span>
+                        </div>
                       </div>
-                      <div style={styles.workerOptionStats}>
-                        <span>Current: {worker.currentAssignments}</span>
-                        <span>⭐ {worker.rating}</span>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </div>
             </div>
@@ -443,7 +535,7 @@ const Assignments = ({ user }) => {
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
   },
   header: {
     display: "flex",
@@ -453,72 +545,72 @@ const styles = {
     padding: "16px",
     backgroundColor: "white",
     borderRadius: "8px",
-    border: "1px solid #e9ecef"
+    border: "1px solid #e9ecef",
   },
   searchContainer: {
     position: "relative",
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
   },
   searchIcon: {
     position: "absolute",
     left: "12px",
-    color: "#6c757d"
+    color: "#6c757d",
   },
   searchInput: {
     padding: "8px 12px 8px 40px",
     border: "1px solid #ddd",
     borderRadius: "20px",
     width: "300px",
-    fontSize: "14px"
+    fontSize: "14px",
   },
   filtersContainer: {
     display: "flex",
-    gap: "12px"
+    gap: "12px",
   },
   filterSelect: {
     padding: "8px 12px",
     border: "1px solid #ddd",
     borderRadius: "4px",
     backgroundColor: "white",
-    fontSize: "14px"
+    fontSize: "14px",
   },
   content: {
     display: "flex",
-    gap: "24px"
+    gap: "24px",
   },
   workersSection: {
-    flex: 2
+    flex: 2,
   },
   unassignedSection: {
-    flex: 1
+    flex: 1,
   },
   sectionHeader: {
-    marginBottom: "16px"
+    marginBottom: "16px",
   },
   sectionTitle: {
     fontSize: "20px",
     fontWeight: "600",
     color: "#343a40",
-    margin: 0
+    margin: 0,
   },
   workersGrid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-    gap: "20px"
+    gap: "20px",
   },
   workerCard: {
     backgroundColor: "white",
     border: "1px solid #e9ecef",
     borderRadius: "8px",
     padding: "20px",
-    boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+    boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
   },
   workerHeader: {
     display: "flex",
     alignItems: "center",
     gap: "16px",
-    marginBottom: "16px"
+    marginBottom: "16px",
   },
   workerAvatar: {
     width: "50px",
@@ -530,21 +622,21 @@ const styles = {
     justifyContent: "center",
     color: "white",
     fontWeight: "600",
-    fontSize: "16px"
+    fontSize: "16px",
   },
   workerInfo: {
-    flex: 1
+    flex: 1,
   },
   workerName: {
     margin: "0 0 4px 0",
     fontSize: "18px",
     fontWeight: "600",
-    color: "#343a40"
+    color: "#343a40",
   },
   workerRole: {
     margin: "0 0 8px 0",
     color: "#6c757d",
-    fontSize: "14px"
+    fontSize: "14px",
   },
   statusBadge: {
     display: "inline-block",
@@ -552,7 +644,7 @@ const styles = {
     borderRadius: "12px",
     fontSize: "10px",
     fontWeight: "600",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
   workerStats: {
     display: "flex",
@@ -560,60 +652,60 @@ const styles = {
     marginBottom: "16px",
     padding: "12px",
     backgroundColor: "#f8f9fa",
-    borderRadius: "6px"
+    borderRadius: "6px",
   },
   statItem: {
-    textAlign: "center"
+    textAlign: "center",
   },
   statLabel: {
     display: "block",
     fontSize: "12px",
     color: "#6c757d",
-    marginBottom: "4px"
+    marginBottom: "4px",
   },
   statValue: {
     display: "block",
     fontSize: "16px",
     fontWeight: "600",
-    color: "#343a40"
+    color: "#343a40",
   },
   workerDetails: {
     display: "flex",
     flexDirection: "column",
     gap: "8px",
-    marginBottom: "16px"
+    marginBottom: "16px",
   },
   detailItem: {
     display: "flex",
     alignItems: "center",
     gap: "8px",
     fontSize: "14px",
-    color: "#6c757d"
+    color: "#6c757d",
   },
   phone: {
     fontFamily: "monospace",
-    fontSize: "13px"
+    fontSize: "13px",
   },
   specialties: {
-    marginBottom: "16px"
+    marginBottom: "16px",
   },
   specialtiesTitle: {
     fontSize: "14px",
     fontWeight: "600",
     color: "#343a40",
-    marginBottom: "8px"
+    marginBottom: "8px",
   },
   chipContainer: {
     display: "flex",
     flexWrap: "wrap",
-    gap: "6px"
+    gap: "6px",
   },
   chip: {
     padding: "4px 8px",
     backgroundColor: "#e9ecef",
     borderRadius: "12px",
     fontSize: "12px",
-    color: "#6c757d"
+    color: "#6c757d",
   },
   viewButton: {
     width: "100%",
@@ -624,25 +716,25 @@ const styles = {
     borderRadius: "4px",
     cursor: "pointer",
     fontSize: "14px",
-    fontWeight: "500"
+    fontWeight: "500",
   },
   issuesList: {
     display: "flex",
     flexDirection: "column",
-    gap: "16px"
+    gap: "16px",
   },
   issueCard: {
     backgroundColor: "white",
     border: "1px solid #e9ecef",
     borderRadius: "8px",
     padding: "16px",
-    boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
+    boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
   },
   issueHeader: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: "12px"
+    marginBottom: "12px",
   },
   issueTitle: {
     margin: 0,
@@ -650,20 +742,20 @@ const styles = {
     fontWeight: "600",
     color: "#343a40",
     flex: 1,
-    marginRight: "12px"
+    marginRight: "12px",
   },
   priorityBadge: {
     padding: "4px 8px",
     borderRadius: "12px",
     fontSize: "10px",
     fontWeight: "600",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
   issueDetails: {
     display: "flex",
     flexDirection: "column",
     gap: "8px",
-    marginBottom: "16px"
+    marginBottom: "16px",
   },
   assignButton: {
     display: "flex",
@@ -678,7 +770,7 @@ const styles = {
     borderRadius: "4px",
     cursor: "pointer",
     fontSize: "14px",
-    fontWeight: "500"
+    fontWeight: "500",
   },
   modalOverlay: {
     position: "fixed",
@@ -690,7 +782,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    zIndex: 1000
+    zIndex: 1000,
   },
   modal: {
     backgroundColor: "white",
@@ -699,7 +791,7 @@ const styles = {
     maxWidth: "600px",
     width: "90%",
     maxHeight: "90vh",
-    overflowY: "auto"
+    overflowY: "auto",
   },
   modalHeader: {
     display: "flex",
@@ -707,12 +799,12 @@ const styles = {
     alignItems: "center",
     marginBottom: "24px",
     paddingBottom: "16px",
-    borderBottom: "1px solid #e9ecef"
+    borderBottom: "1px solid #e9ecef",
   },
   modalTitle: {
     margin: 0,
     fontSize: "20px",
-    fontWeight: "600"
+    fontWeight: "600",
   },
   closeButton: {
     background: "none",
@@ -721,22 +813,22 @@ const styles = {
     cursor: "pointer",
     color: "#6c757d",
     padding: "0",
-    lineHeight: 1
+    lineHeight: 1,
   },
   modalContent: {
     display: "flex",
     flexDirection: "column",
-    gap: "20px"
+    gap: "20px",
   },
   modalSection: {
     display: "flex",
     flexDirection: "column",
-    gap: "8px"
+    gap: "8px",
   },
   workersList: {
     display: "flex",
     flexDirection: "column",
-    gap: "8px"
+    gap: "8px",
   },
   workerOption: {
     display: "flex",
@@ -746,20 +838,20 @@ const styles = {
     border: "1px solid #e9ecef",
     borderRadius: "6px",
     cursor: "pointer",
-    transition: "background-color 0.2s"
+    transition: "background-color 0.2s",
   },
   workerOptionInfo: {
     display: "flex",
     flexDirection: "column",
-    gap: "4px"
+    gap: "4px",
   },
   workerOptionRole: {
     fontSize: "14px",
-    color: "#6c757d"
+    color: "#6c757d",
   },
   workerOptionWard: {
     fontSize: "12px",
-    color: "#adb5bd"
+    color: "#adb5bd",
   },
   workerOptionStats: {
     display: "flex",
@@ -767,8 +859,8 @@ const styles = {
     alignItems: "flex-end",
     gap: "4px",
     fontSize: "12px",
-    color: "#6c757d"
-  }
+    color: "#6c757d",
+  },
 };
 
 export default Assignments;
